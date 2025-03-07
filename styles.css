@@ -1,4 +1,14 @@
 :root {
+    /* Set dark theme as default */
+    --primary-color: #2d5a8c;
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --button-hover: #1d3c5c;
+    --tower-color: #888;
+    --disk-color: #ff9100;
+}
+
+[data-theme="light"] {
     --primary-color: #4a90e2;
     --background-color: #ffffff;
     --text-color: #333333;

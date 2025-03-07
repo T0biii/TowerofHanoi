@@ -17,12 +17,10 @@ class TowerOfHanoi {
 
     // Move initializeTheme into the class
     initializeTheme() {
-        // Check for saved theme preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            document.documentElement.setAttribute('data-theme', savedTheme);
-            this.themeToggle.checked = savedTheme === 'dark';
-        }
+        // Check for saved theme preference or use dark as default
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        this.themeToggle.checked = savedTheme === 'dark';
 
         this.themeToggle.addEventListener('change', (e) => {
             if (e.target.checked) {
@@ -172,25 +170,3 @@ function drop(e) {
 document.addEventListener('DOMContentLoaded', () => {
     window.gameInstance = new TowerOfHanoi();
 });
-
-// Add these methods to your TowerOfHanoi class
-function initializeTheme() {
-
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        this.themeToggle.checked = savedTheme === 'dark';
-    }
-
-    this.themeToggle.addEventListener('change', (e) => {
-        if (e.target.checked) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-            localStorage.setItem('theme', 'dark');
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light');
-            localStorage.setItem('theme', 'light');
-        }
-    });
-};
-// Remove the standalone initializeTheme function at the bottom
