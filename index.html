@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower of Hanoi</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="theme-switch">
+            <label class="switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider"></span>
+            </label>
+            <span class="theme-label">Dark Mode</span>
+        </div>
+        <h1>Tower of Hanoi</h1>
+        <div class="controls">
+            <div class="control-group">
+                <label for="diskCount">Number of disks:</label>
+                <select id="diskCount" class="cool-select">
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                </select>
+            </div>
+            <button id="resetBtn" class="cool-button">Reset Game</button>
+            <div id="moves" class="moves-counter">Moves: 0</div>
+        </div>
+        <div class="game-container">
+            <div class="tower" id="tower1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="pole"></div>
+                <div class="base"></div>
+            </div>
+            <div class="tower" id="tower2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="pole"></div>
+                <div class="base"></div>
+            </div>
+            <div class="tower" id="tower3" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="pole"></div>
+                <div class="base"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add modal dialog -->
+    <div id="winModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Congratulations! 🎉</h2>
+            <p id="winMessage"></p>
+            <button class="cool-button" onclick="document.getElementById('winModal').style.display='none'">Play Again</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
