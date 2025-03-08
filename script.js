@@ -11,8 +11,24 @@ class TowerOfHanoi {
         this.themeToggle = document.getElementById('themeToggle');
         this.initializeTheme();
 
+        this.sounds = {
+            pickup: new Audio(''),
+            drop: new Audio('sounds/mixkit-arrow-whoosh-1491.wav'),
+            win: new Audio('sounds/mixkit-achievement-bell-600.wav')
+        };
+        
+        this.soundToggle = document.getElementById('soundToggle');
+        this.isSoundEnabled = true;
+
         this.initializeGame();
         this.setupEventListeners();
+    }
+
+    playSound(soundName) {
+        if (this.isSoundEnabled && this.sounds[soundName]) {
+            this.sounds[soundName].currentTime = 0;
+            this.sounds[soundName].play();
+        }
     }
 
     // Move initializeTheme into the class
@@ -67,6 +83,7 @@ class TowerOfHanoi {
         const topDisk = disks[disks.length - 1];
     
         if (e.target === topDisk) {
+            this.playSound('pickup');
             e.dataTransfer.setData('text', e.target.id);
         } else {
             e.preventDefault();
@@ -89,6 +106,7 @@ class TowerOfHanoi {
         const lastTower = this.towers[2];
         const diskCount = parseInt(this.diskCountSelect.value);
         if (lastTower.querySelectorAll('.disk').length === diskCount) {
+            this.playSound('win');
             setTimeout(() => {
                 // Celebration animation
                 confetti({
@@ -161,6 +179,9 @@ class TowerOfHanoi {
             document.getElementById('diskValue').textContent = e.target.value;
             this.initializeGame();
         });
+        this.soundToggle.addEventListener('change', (e) => {
+            this.isSoundEnabled = e.target.checked;
+        });
     }
 }
 
@@ -183,6 +204,7 @@ function drop(e) {
         targetTower.appendChild(disk);
         game.moves++;
         game.updateMovesDisplay();
+        game.playSound('drop');
         game.checkWin();
     }
 }
