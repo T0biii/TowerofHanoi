@@ -83,7 +83,7 @@ class TowerOfHanoi {
         const topDisk = disks[disks.length - 1];
     
         if (e.target === topDisk) {
-            this.playSound('pickup');
+//            this.playSound('pickup');
             e.dataTransfer.setData('text', e.target.id);
         } else {
             e.preventDefault();
