@@ -20,14 +20,13 @@
         </div>
         <h1>Tower of Hanoi</h1>
         <div class="controls">
+            <!-- Replace the select element with this -->
             <div class="control-group">
-                <label for="diskCount">Number of disks:</label>
-                <select id="diskCount" class="cool-select">
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                </select>
+                <div class="disk-count-display">
+                    <span class="disk-label">Disks</span>
+                    <span id="diskValue" class="disk-value">3</span>
+                </div>
+                <input type="range" id="diskCount" class="disk-slider" min="3" max="6" value="3">
             </div>
             <button id="resetBtn" class="cool-button">Reset Game</button>
             <div id="moves" class="moves-counter">Moves: 0</div>

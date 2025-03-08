@@ -154,10 +154,13 @@ class TowerOfHanoi {
             }, 100);
         }
     }
-    
+    // Add this to setupEventListeners method
     setupEventListeners() {
         this.resetBtn.addEventListener('click', () => this.initializeGame());
-        this.diskCountSelect.addEventListener('change', () => this.initializeGame());
+        this.diskCountSelect.addEventListener('input', (e) => {
+            document.getElementById('diskValue').textContent = e.target.value;
+            this.initializeGame();
+        });
     }
 }
 

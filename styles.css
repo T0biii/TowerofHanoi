@@ -35,21 +35,65 @@
     --tower-color: #888;
     --disk-color: #ff9100;
 }
+.disk-slider {
+    -webkit-appearance: none;
+    width: 200px;
+    height: 8px;
+    border-radius: 5px;
+    background: var(--primary-color);
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
 
+.disk-slider:hover {
+    opacity: 1;
+}
+
+.disk-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--disk-color);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+}
+
+.disk-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+.disk-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--disk-color);
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.disk-slider::-moz-range-thumb:hover {
+    transform: scale(1.1);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
     transition: all 0.3s ease;
 }
-
 .container {
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
     padding: 20px;
 }
-
 h1 {
     font-size: 2.5em;
     margin-bottom: 30px;
@@ -57,7 +101,6 @@ h1 {
     letter-spacing: 2px;
     color: var(--primary-color);
 }
-
 .controls {
     margin: 20px 0;
     display: flex;
@@ -66,7 +109,6 @@ h1 {
     gap: 20px;
     flex-wrap: wrap;
 }
-
 .cool-button {
     padding: 12px 24px;
     font-size: 1em;
@@ -81,13 +123,11 @@ h1 {
     font-weight: 600;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
-
 .cool-button:hover {
     background-color: var(--button-hover);
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(0,0,0,0.2);
 }
-
 .cool-select {
     padding: 10px 20px;
     font-size: 1em;
@@ -99,11 +139,9 @@ h1 {
     outline: none;
     transition: all 0.3s ease;
 }
-
 .cool-select:hover {
     border-color: var(--button-hover);
 }
-
 .moves-counter {
     font-size: 1.2em;
     font-weight: 600;
@@ -112,7 +150,6 @@ h1 {
     border-radius: 20px;
     background-color: rgba(74, 144, 226, 0.1);
 }
-
 /* Theme Switch Styles */
 .theme-switch {
     position: absolute;
@@ -122,20 +159,17 @@ h1 {
     align-items: center;
     gap: 10px;
 }
-
 .switch {
     position: relative;
     display: inline-block;
     width: 60px;
     height: 34px;
 }
-
 .switch input {
     opacity: 0;
     width: 0;
     height: 0;
 }
-
 .slider {
     position: absolute;
     cursor: pointer;
@@ -147,7 +181,6 @@ h1 {
     transition: .4s;
     border-radius: 34px;
 }
-
 .slider:before {
     position: absolute;
     content: "";
@@ -159,40 +192,32 @@ h1 {
     transition: .4s;
     border-radius: 50%;
 }
-
 input:checked + .slider {
     background-color: var(--primary-color);
 }
-
 input:checked + .slider:before {
     transform: translateX(26px);
 }
-
 /* Update existing tower styles */
 .pole {
     background-color: var(--tower-color);
 }
-
 .base {
     background-color: var(--tower-color);
 }
-
 .disk {
     background-color: var(--disk-color);
 }
-
 .game-container {
     display: flex;
     justify-content: space-around;
     margin-top: 50px;
 }
-
 .tower {
     position: relative;
     width: 200px;
     height: 200px;
 }
-
 .pole {
     position: absolute;
     left: 50%;
@@ -202,7 +227,6 @@ input:checked + .slider:before {
     background-color: #666;
     transform: translateX(-50%);
 }
-
 .base {
     position: absolute;
     bottom: 0;
@@ -210,7 +234,6 @@ input:checked + .slider:before {
     height: 20px;
     background-color: #666;
 }
-
 .disk {
     position: absolute;
     left: 50%;
@@ -222,7 +245,6 @@ input:checked + .slider:before {
     transition: all 0.2s;
     user-select: none;
 }
-
 .disk:hover {
     transform: translateX(-50%) scale(1.02);
 }
@@ -262,7 +284,6 @@ input:checked + .slider:before {
     background-color: rgba(0, 0, 0, 0.5);
     animation: fadeIn 0.3s;
 }
-
 .modal-content {
     background-color: var(--background-color);
     color: var(--text-color);
@@ -276,7 +297,6 @@ input:checked + .slider:before {
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
     animation: slideIn 0.3s;
 }
-
 .close {
     position: absolute;
     right: 20px;
@@ -286,16 +306,13 @@ input:checked + .slider:before {
     cursor: pointer;
     color: var(--text-color);
 }
-
 .close:hover {
     color: var(--primary-color);
 }
-
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
-
 @keyframes slideIn {
     from { transform: translateY(-100px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
