@@ -328,3 +328,53 @@ input:checked + .slider:before {
     from { transform: translateY(-100px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
+/* Replace the .sound-switch styles with: */
+.sound-control {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sound-button {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.volume-slider {
+    width: 100px;
+    height: 4px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--primary-color);
+    outline: none;
+    border-radius: 2px;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+
+.volume-slider:hover {
+    opacity: 1;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    background: var(--text-color);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    background: var(--text-color);
+    border-radius: 50%;
+    cursor: pointer;
+}

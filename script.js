@@ -1,5 +1,4 @@
 class TowerOfHanoi {
-    // Add this to your existing TowerOfHanoi class constructor
     constructor() {
         this.moves = 0;
         this.towers = document.querySelectorAll('.tower');
@@ -7,7 +6,7 @@ class TowerOfHanoi {
         this.resetBtn = document.getElementById('resetBtn');
         this.diskCountSelect = document.getElementById('diskCount');
         
-        // Add theme toggle initialization
+        // Theme toggle initialization
         this.themeToggle = document.getElementById('themeToggle');
         this.initializeTheme();
 
@@ -18,23 +17,31 @@ class TowerOfHanoi {
             restart: new Audio('sounds/mixkit-gore-video-game-blood-splash-263.wav')
         };
         
-        this.soundToggle = document.getElementById('soundToggle');
-        this.isSoundEnabled = true;
+        // Sound control initialization
+        this.muteButton = document.getElementById('muteButton');
+        this.volumeSlider = document.getElementById('volumeSlider');
+        this.isMuted = false;
+        this.volume = 1;
 
         this.initializeGame();
         this.setupEventListeners();
     }
 
     playSound(soundName) {
-        if (this.isSoundEnabled && this.sounds[soundName]) {
+        if (this.sounds[soundName]) {
             this.sounds[soundName].currentTime = 0;
             this.sounds[soundName].play();
         }
     }
 
-    // Move initializeTheme into the class
+    updateVolume() {
+        const effectiveVolume = this.isMuted ? 0 : this.volume;
+        Object.values(this.sounds).forEach(sound => {
+            sound.volume = effectiveVolume;
+        });
+    }
+
     initializeTheme() {
-        // Check for saved theme preference or use dark as default
         const savedTheme = localStorage.getItem('theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
         this.themeToggle.checked = savedTheme === 'dark';
@@ -51,17 +58,14 @@ class TowerOfHanoi {
     }
     
     initializeGame() {
-        // Clear existing disks
         this.towers.forEach(tower => {
             const disks = tower.querySelectorAll('.disk');
             disks.forEach(disk => disk.remove());
         });
     
-        // Reset moves
         this.moves = 0;
         this.updateMovesDisplay();
     
-        // Create new disks
         const diskCount = parseInt(this.diskCountSelect.value);
         const firstTower = this.towers[0];
     
@@ -103,13 +107,13 @@ class TowerOfHanoi {
     updateMovesDisplay() {
         this.movesDisplay.textContent = `Moves: ${this.moves}`;
     }
+
     checkWin() {
         const lastTower = this.towers[2];
         const diskCount = parseInt(this.diskCountSelect.value);
         if (lastTower.querySelectorAll('.disk').length === diskCount) {
             this.playSound('win');
             setTimeout(() => {
-                // Celebration animation
                 confetti({
                     particleCount: 100,
                     spread: 70,
@@ -131,7 +135,6 @@ class TowerOfHanoi {
                     });
                 }, 250);
 
-                // Show modal and setup all close handlers
                 const modal = document.getElementById('winModal');
                 const winMessage = document.getElementById('winMessage');
                 const span = document.getElementsByClassName('close')[0];
@@ -142,13 +145,12 @@ class TowerOfHanoi {
                                       Minimum possible moves: ${Math.pow(2, diskCount) - 1}`;
                 modal.style.display = 'block';
 
-                // Reset game for all closing methods
                 const resetAndClose = () => {
                     this.playSound('restart');
                     modal.style.display = 'none';
                     this.initializeGame();
                 };
-                // Add confetti button handler
+
                 confettiBtn.onclick = () => {
                     const positions = [
                         { x: 0.2, angle: 60 },    // left
@@ -164,6 +166,7 @@ class TowerOfHanoi {
                         angle: randomPos.angle
                     });
                 };
+
                 span.onclick = resetAndClose;
                 playAgainBtn.onclick = resetAndClose;
                 window.onclick = (event) => {
@@ -174,23 +177,33 @@ class TowerOfHanoi {
             }, 100);
         }
     }
-    // Add this to setupEventListeners method
+
     setupEventListeners() {
         this.resetBtn.addEventListener('click', () => {
-            this.playSound('restart')
-            this.initializeGame()
+            this.playSound('restart');
+            this.initializeGame();
         });
+
         this.diskCountSelect.addEventListener('input', (e) => {
             document.getElementById('diskValue').textContent = e.target.value;
             this.initializeGame();
         });
-        this.soundToggle.addEventListener('change', (e) => {
-            this.isSoundEnabled = e.target.checked;
+
+        this.muteButton.addEventListener('click', () => {
+            this.isMuted = !this.isMuted;
+            this.muteButton.textContent = this.isMuted ? '🔇' : '🔊';
+            this.updateVolume();
+        });
+
+        this.volumeSlider.addEventListener('input', (e) => {
+            this.volume = parseFloat(e.target.value);
+            if (!this.isMuted) {
+                this.updateVolume();
+            }
         });
     }
 }
 
-// Global functions for drag and drop
 function allowDrop(e) {
     e.preventDefault();
 }
