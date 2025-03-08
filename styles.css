@@ -7,7 +7,17 @@
     --tower-color: #888;
     --disk-color: #ff9100;
 }
+.button-group {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
 
+.confetti-btn {
+    padding: 12px 20px !important;
+    font-size: 1.2em !important;
+}
 [data-theme="light"] {
     --primary-color: #4a90e2;
     --background-color: #ffffff;

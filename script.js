@@ -85,7 +85,6 @@ class TowerOfHanoi {
     updateMovesDisplay() {
         this.movesDisplay.textContent = `Moves: ${this.moves}`;
     }
-    
     checkWin() {
         const lastTower = this.towers[2];
         const diskCount = parseInt(this.diskCountSelect.value);
@@ -113,25 +112,43 @@ class TowerOfHanoi {
                     });
                 }, 250);
 
-                // Show modal instead of alert
+                // Show modal and setup all close handlers
                 const modal = document.getElementById('winModal');
                 const winMessage = document.getElementById('winMessage');
+                const span = document.getElementsByClassName('close')[0];
+                const playAgainBtn = modal.querySelector('.cool-button');
+                const confettiBtn = document.getElementById('moreConfetti');
+                
                 winMessage.innerHTML = `You solved the puzzle in ${this.moves} moves!<br>
                                       Minimum possible moves: ${Math.pow(2, diskCount) - 1}`;
                 modal.style.display = 'block';
 
-                // Close modal and reset game
-                const span = document.getElementsByClassName('close')[0];
-                const playAgainBtn = modal.querySelector('.cool-button');
-                
-                span.onclick = () => modal.style.display = 'none';
-                playAgainBtn.onclick = () => {
+                // Reset game for all closing methods
+                const resetAndClose = () => {
                     modal.style.display = 'none';
                     this.initializeGame();
                 };
+                // Add confetti button handler
+                confettiBtn.onclick = () => {
+                    const positions = [
+                        { x: 0.2, angle: 60 },    // left
+                        { x: 0.5, angle: 90 },    // center
+                        { x: 0.8, angle: 120 }    // right
+                    ];
+                    const randomPos = positions[Math.floor(Math.random() * positions.length)];
+                    
+                    confetti({
+                        particleCount: 100,
+                        spread: 70,
+                        origin: { x: randomPos.x, y: 0.6 },
+                        angle: randomPos.angle
+                    });
+                };
+                span.onclick = resetAndClose;
+                playAgainBtn.onclick = resetAndClose;
                 window.onclick = (event) => {
                     if (event.target == modal) {
-                        modal.style.display = 'none';
+                        resetAndClose();
                     }
                 };
             }, 100);
