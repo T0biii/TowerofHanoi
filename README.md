@@ -2,6 +2,8 @@
 
 A modern, interactive implementation of the classic Tower of Hanoi puzzle game built with HTML, CSS, and JavaScript. Created with assistance from Trae AI.
 
+Give it a try: https://towerofhanoi.t0biii.dev/ or https://t0biii.github.io/TowerofHanoi/
+
 ## Features
 
 - Drag and drop interface
