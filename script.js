@@ -14,7 +14,8 @@ class TowerOfHanoi {
         this.sounds = {
             pickup: new Audio(''),
             drop: new Audio('sounds/mixkit-arrow-whoosh-1491.wav'),
-            win: new Audio('sounds/mixkit-achievement-bell-600.wav')
+            win: new Audio('sounds/mixkit-achievement-bell-600.wav'),
+            restart: new Audio('sounds/mixkit-gore-video-game-blood-splash-263.wav')
         };
         
         this.soundToggle = document.getElementById('soundToggle');
@@ -143,6 +144,7 @@ class TowerOfHanoi {
 
                 // Reset game for all closing methods
                 const resetAndClose = () => {
+                    this.playSound('restart');
                     modal.style.display = 'none';
                     this.initializeGame();
                 };
@@ -174,7 +176,10 @@ class TowerOfHanoi {
     }
     // Add this to setupEventListeners method
     setupEventListeners() {
-        this.resetBtn.addEventListener('click', () => this.initializeGame());
+        this.resetBtn.addEventListener('click', () => {
+            this.playSound('restart')
+            this.initializeGame()
+        });
         this.diskCountSelect.addEventListener('input', (e) => {
             document.getElementById('diskValue').textContent = e.target.value;
             this.initializeGame();
