@@ -38,10 +38,11 @@
 }
 
 [data-theme="dark"] {
-    --primary-color: #2d5a8c;
+    /* Dark theme (default) - improved contrast */
+    --primary-color: #4a90e2;  /* Brighter blue */
     --background-color: #1a1a1a;
     --text-color: #ffffff;
-    --button-hover: #1d3c5c;
+    --button-hover: #2d5a8c;
     --tower-color: #888;
     --disk-color: #ff9100;
 }
