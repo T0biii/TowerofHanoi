@@ -68,16 +68,17 @@
     <body>
         <div class="container">
             <div class="theme-switch">
-                <label class="switch">
+                <label class="switch" for="themeToggle">
                     <input type="checkbox" id="themeToggle">
                     <span class="slider"></span>
                 </label>
                 <span class="theme-label">Dark Mode</span>
             </div>
-            <!-- Add this after the theme switch div -->
-            <!-- Replace the sound-switch div (around line 21) with: -->
+            
+            <!-- Sound control with proper label -->
             <div class="sound-control">
-                <button class="sound-button" id="muteButton">🔊</button>
+                <label for="volumeSlider" class="sound-label">Volume</label>
+                <button class="sound-button" id="muteButton" aria-label="Toggle sound">🔊</button>
                 <input
                     type="range"
                     id="volumeSlider"
@@ -86,17 +87,18 @@
                     step="0.1"
                     value="1"
                     class="volume-slider"
+                    aria-label="Volume control"
                 />
             </div>
             <h1>Tower of Hanoi</h1>
             <div class="controls">
-                <!-- Replace the select element with this -->
+                <!-- Disk count control with proper label -->
                 <div class="control-group">
                     <div class="disk-count-display">
-                        <span class="disk-label">Disks</span>
+                        <label for="diskCount" class="disk-label">Disks</label>
                         <span id="diskValue" class="disk-value">3</span>
                     </div>
-                    <input type="range" id="diskCount" class="disk-slider" min="3" max="6" value="3">
+                    <input type="range" id="diskCount" class="disk-slider" min="3" max="6" value="3" aria-labelledby="diskValue">
                 </div>
                 <button id="resetBtn" class="cool-button">Reset Game</button>
                 <div id="moves" class="moves-counter">Moves: 0</div>
