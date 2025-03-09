@@ -378,3 +378,22 @@ input:checked + .slider:before {
     border-radius: 50%;
     cursor: pointer;
 }
+/* Add at the end of your CSS file */
+.site-footer {
+    margin-top: 40px;
+    padding: 15px;
+    text-align: center;
+    font-size: 0.9em;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.site-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.site-footer a:hover {
+    opacity: 0.8;
+}

@@ -4,91 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Play the classic Tower of Hanoi puzzle game online. A fun, interactive implementation with customizable difficulty, sound effects, and both light and dark themes.">
-    <title>Tower of Hanoi</title>
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="styles.css">
-    <!-- Replace the external font and script links with: -->
-    <style>
-        @font-face {
-            font-family: 'Poppins';
-            font-style: normal;
-            font-weight: 400;
-            src: url('fonts/poppins-regular.woff2') format('woff2');
+    <meta name="keywords" content="Tower of Hanoi, puzzle game, brain teaser, logic game, online game">
+    <meta name="author" content="T0biii">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://towerofhanoi.t0biii.dev/">
+    <meta property="og:title" content="Tower of Hanoi - Classic Puzzle Game">
+    <meta property="og:description" content="Play the classic Tower of Hanoi puzzle game online with customizable difficulty and themes.">
+    <meta property="og:image" content="https://towerofhanoi.t0biii.dev/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://towerofhanoi.t0biii.dev/">
+    <meta property="twitter:title" content="Tower of Hanoi - Classic Puzzle Game">
+    <meta property="twitter:description" content="Play the classic Tower of Hanoi puzzle game online with customizable difficulty and themes.">
+    <meta property="twitter:image" content="https://towerofhanoi.t0biii.dev/og-image.jpg">
+    
+    <head>
+        <link rel="canonical" href="https://towerofhanoi.t0biii.dev/">
+        <title>Tower of Hanoi</title>
+        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="stylesheet" href="styles.css">
+        <!-- Replace the external font and script links with: -->
+        <style>
+            @font-face {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 400;
+                src: url('fonts/poppins-regular.woff2') format('woff2');
+            }
+            @font-face {
+                font-family: 'Poppins';
+                font-style: normal;
+                font-weight: 600;
+                src: url('fonts/poppins-semibold.woff2') format('woff2');
+            }
+        </style>
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Game",
+          "name": "Tower of Hanoi",
+          "description": "An interactive implementation of the classic Tower of Hanoi puzzle game.",
+          "url": "https://towerofhanoi.t0biii.dev/",
+          "author": {
+            "@type": "Person",
+            "name": "T0biii"
+          },
+          "genre": "Puzzle",
+          "gamePlatform": "Web Browser",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock"
+          }
         }
-        @font-face {
-            font-family: 'Poppins';
-            font-style: normal;
-            font-weight: 600;
-            src: url('fonts/poppins-semibold.woff2') format('woff2');
-        }
-    </style>
-    <script src="dist/confetti.browser.min.js"></script>
-</head>
-<body>
-    <div class="container">
-        <div class="theme-switch">
-            <label class="switch">
-                <input type="checkbox" id="themeToggle">
-                <span class="slider"></span>
-            </label>
-            <span class="theme-label">Dark Mode</span>
-        </div>
-        <!-- Add this after the theme switch div -->
-        <!-- Replace the sound-switch div (around line 21) with: -->
-        <div class="sound-control">
-            <button class="sound-button" id="muteButton">🔊</button>
-            <input
-                type="range"
-                id="volumeSlider"
-                min="0"
-                max="1"
-                step="0.1"
-                value="1"
-                class="volume-slider"
-            />
-        </div>
-        <h1>Tower of Hanoi</h1>
-        <div class="controls">
-            <!-- Replace the select element with this -->
-            <div class="control-group">
-                <div class="disk-count-display">
-                    <span class="disk-label">Disks</span>
-                    <span id="diskValue" class="disk-value">3</span>
+        </script>
+        <script src="dist/confetti.browser.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="theme-switch">
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+                <span class="theme-label">Dark Mode</span>
+            </div>
+            <!-- Add this after the theme switch div -->
+            <!-- Replace the sound-switch div (around line 21) with: -->
+            <div class="sound-control">
+                <button class="sound-button" id="muteButton">🔊</button>
+                <input
+                    type="range"
+                    id="volumeSlider"
+                    min="0"
+                    max="1"
+                    step="0.1"
+                    value="1"
+                    class="volume-slider"
+                />
+            </div>
+            <h1>Tower of Hanoi</h1>
+            <div class="controls">
+                <!-- Replace the select element with this -->
+                <div class="control-group">
+                    <div class="disk-count-display">
+                        <span class="disk-label">Disks</span>
+                        <span id="diskValue" class="disk-value">3</span>
+                    </div>
+                    <input type="range" id="diskCount" class="disk-slider" min="3" max="6" value="3">
                 </div>
-                <input type="range" id="diskCount" class="disk-slider" min="3" max="6" value="3">
+                <button id="resetBtn" class="cool-button">Reset Game</button>
+                <div id="moves" class="moves-counter">Moves: 0</div>
             </div>
-            <button id="resetBtn" class="cool-button">Reset Game</button>
-            <div id="moves" class="moves-counter">Moves: 0</div>
-        </div>
-        <div class="game-container">
-            <div class="tower" id="tower1" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div class="pole"></div>
-                <div class="base"></div>
-            </div>
-            <div class="tower" id="tower2" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div class="pole"></div>
-                <div class="base"></div>
-            </div>
-            <div class="tower" id="tower3" ondrop="drop(event)" ondragover="allowDrop(event)">
-                <div class="pole"></div>
-                <div class="base"></div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Add modal dialog -->
-    <div id="winModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2>Congratulations! 🎉</h2>
-            <p id="winMessage"></p>
-            <div class="button-group">
-                <button class="cool-button" onclick="document.getElementById('winModal').style.display='none'">Play Again</button>
-                <button class="cool-button confetti-btn" id="moreConfetti">🎊</button>
+            <div class="game-container">
+                <div class="tower" id="tower1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="pole"></div>
+                    <div class="base"></div>
+                </div>
+                <div class="tower" id="tower2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="pole"></div>
+                    <div class="base"></div>
+                </div>
+                <div class="tower" id="tower3" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <div class="pole"></div>
+                    <div class="base"></div>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <script src="script.js"></script>
-</body>
-</html>
+        
+        <!-- Add modal dialog -->
+        <div id="winModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Congratulations! 🎉</h2>
+                <p id="winMessage"></p>
+                <div class="button-group">
+                    <button class="cool-button" onclick="document.getElementById('winModal').style.display='none'">Play Again</button>
+                    <button class="cool-button confetti-btn" id="moreConfetti">🎊</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Add a semantic footer -->
+        <footer class="site-footer">
+            <p>&copy; <span id="currentYear"></span> <a href="https://github.com/T0biii/TowerofHanoi" target="_blank" rel="noopener">Tower of Hanoi</a> | Made with AI and ❤️ by <a href="https://t0biii.dev" target="_blank" rel="noopener">T0biii</a></p>
+        </footer>
+        
+        <script src="script.js"></script>
+        <script>
+            // Set current year for copyright
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+        </script>
+    </body>
+    </html>
