@@ -61,6 +61,7 @@ class TowerOfHanoi {
         });
     }
     
+    // In the initializeGame method, add this after creating each disk:
     initializeGame() {
         this.towers.forEach(tower => {
             const disks = tower.querySelectorAll('.disk');
@@ -81,6 +82,8 @@ class TowerOfHanoi {
             disk.style.width = `${i * 30 + 30}px`;
             disk.style.bottom = `${(diskCount - i) * 30 + 25}px`;
             disk.setAttribute('data-size', i);
+            // Add this line to set a custom property for mobile styling
+            disk.style.setProperty('--disk-index', diskCount - i);
             disk.addEventListener('dragstart', this.dragStart.bind(this));
             firstTower.appendChild(disk);
         }
@@ -262,6 +265,7 @@ function allowDrop(e) {
     e.preventDefault();
 }
 
+// Also update the drop function to maintain the custom property:
 function drop(e) {
     e.preventDefault();
     const game = window.gameInstance;
@@ -273,6 +277,8 @@ function drop(e) {
         const targetDisks = targetTower.querySelectorAll('.disk');
         const newBottom = targetDisks.length * 30 + 25;
         disk.style.bottom = `${newBottom}px`;
+        // Add this line to update the custom property
+        disk.style.setProperty('--disk-index', targetDisks.length);
         targetTower.appendChild(disk);
         game.moves++;
         game.updateMovesDisplay();

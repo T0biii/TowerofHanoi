@@ -399,7 +399,7 @@ input:checked + .slider:before {
     opacity: 0.8;
 }
 
-/* Add responsive layout for mobile devices */
+/* Modify the responsive layout for mobile devices */
 @media (max-width: 768px) {
     .theme-switch, .sound-control {
         position: static;
@@ -411,24 +411,71 @@ input:checked + .slider:before {
         flex-direction: column;
     }
     
+    /* Keep towers in a row but make them smaller */
     .game-container {
-        flex-direction: column;
-        align-items: center;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-top: 30px;
     }
     
     .tower {
-        margin-bottom: 50px;
-    }
-    
-    .tower:last-child {
+        width: 30%;
+        height: 150px;
         margin-bottom: 0;
     }
     
     .pole {
-        height: 120px;
+        height: 130px;
+        width: 10px;
+    }
+    
+    .base {
+        height: 15px;
     }
     
     .disk {
-        height: 20px;
+        height: 18px;
     }
+    
+    /* Adjust disk sizes for mobile */
+    .disk[data-size="1"] { width: 30px !important; }
+    .disk[data-size="2"] { width: 45px !important; }
+    .disk[data-size="3"] { width: 60px !important; }
+    .disk[data-size="4"] { width: 75px !important; }
+    .disk[data-size="5"] { width: 90px !important; }
+    .disk[data-size="6"] { width: 105px !important; }
+    
+    /* Adjust spacing between disks */
+    .disk {
+        bottom: calc(var(--disk-index) * 20px + 15px) !important;
+    }
+    
+    h1 {
+        font-size: 1.8em;
+        margin-bottom: 15px;
+    }
+    
+    .container {
+        padding: 10px;
+    }
+}
+
+/* For very small screens */
+@media (max-width: 480px) {
+    .tower {
+        width: 32%;
+        height: 120px;
+    }
+    
+    .pole {
+        height: 100px;
+        width: 8px;
+    }
+    
+    .disk[data-size="1"] { width: 25px !important; }
+    .disk[data-size="2"] { width: 35px !important; }
+    .disk[data-size="3"] { width: 45px !important; }
+    .disk[data-size="4"] { width: 55px !important; }
+    .disk[data-size="5"] { width: 65px !important; }
+    .disk[data-size="6"] { width: 75px !important; }
 }
