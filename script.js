@@ -23,6 +23,10 @@ class TowerOfHanoi {
         this.isMuted = false;
         this.volume = 1;
 
+        // Add touch support for mobile
+        this.selectedDisk = null;
+        this.isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
         this.initializeGame();
         this.setupEventListeners();
     }
@@ -201,6 +205,56 @@ class TowerOfHanoi {
                 this.updateVolume();
             }
         });
+    }
+    
+    setupTouchEvents() {
+        // Add touch event handlers to disks and towers
+        this.towers.forEach(tower => {
+            tower.addEventListener('touchstart', this.handleTouchStart.bind(this));
+            tower.addEventListener('touchend', this.handleTouchEnd.bind(this));
+        });
+    }
+    
+    handleTouchStart(e) {
+        if (this.selectedDisk) return;
+        
+        const tower = e.currentTarget;
+        const disks = tower.querySelectorAll('.disk');
+        if (disks.length === 0) return;
+        
+        const topDisk = disks[disks.length - 1];
+        
+        // Visual feedback
+        topDisk.style.opacity = '0.7';
+        topDisk.style.transform = 'translateX(-50%) scale(1.05)';
+        
+        this.selectedDisk = topDisk;
+        e.preventDefault(); // Prevent scrolling while dragging
+    }
+    
+    handleTouchEnd(e) {
+        if (!this.selectedDisk) return;
+        
+        const targetTower = e.currentTarget;
+        const sourceTower = this.selectedDisk.parentElement;
+        
+        // Reset visual feedback
+        this.selectedDisk.style.opacity = '1';
+        this.selectedDisk.style.transform = 'translateX(-50%)';
+        
+        if (targetTower !== sourceTower && this.isValidMove(this.selectedDisk, targetTower)) {
+            const targetDisks = targetTower.querySelectorAll('.disk');
+            const newBottom = targetDisks.length * 30 + 25;
+            this.selectedDisk.style.bottom = `${newBottom}px`;
+            targetTower.appendChild(this.selectedDisk);
+            this.moves++;
+            this.updateMovesDisplay();
+            this.playSound('drop');
+            this.checkWin();
+        }
+        
+        this.selectedDisk = null;
+        e.preventDefault();
     }
 }
 

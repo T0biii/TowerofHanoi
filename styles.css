@@ -398,3 +398,37 @@ input:checked + .slider:before {
 .site-footer a:hover {
     opacity: 0.8;
 }
+
+/* Add responsive layout for mobile devices */
+@media (max-width: 768px) {
+    .theme-switch, .sound-control {
+        position: static;
+        margin: 10px auto;
+        justify-content: center;
+    }
+    
+    .controls {
+        flex-direction: column;
+    }
+    
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tower {
+        margin-bottom: 50px;
+    }
+    
+    .tower:last-child {
+        margin-bottom: 0;
+    }
+    
+    .pole {
+        height: 120px;
+    }
+    
+    .disk {
+        height: 20px;
+    }
+}
